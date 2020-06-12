@@ -12,4 +12,18 @@ Rename "config/config.env.env" to "config/config.env" and update the values/sett
 npm install
 ```
 
+## Run App
+
+> Run in development mode:
+
+- npm run dev
+
+> Run in production mode:
+
+- npm start
+
+## You can find the documentation of the APi at:
+
+> https://documenter.getpostman.com/view/10666268/SzzhcxrA?version=latest
+
 - Version 1.0.0
