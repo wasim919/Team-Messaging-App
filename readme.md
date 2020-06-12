@@ -22,7 +22,7 @@ npm install
 
 - npm start
 
-## You can find the documentation of the APi at:
+## You can find the documentation of the API at:
 
 > https://documenter.getpostman.com/view/10666268/SzzhcxrA?version=latest
 
