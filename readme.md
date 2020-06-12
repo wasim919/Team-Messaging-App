@@ -1,6 +1,6 @@
 # Team Messaging App
 
-> he purpose of this app is to allow communication b/w people within an organisation.
+> The purpose of this app is to allow communication b/w people within an organisation.
 
 ## Usage
 
