@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
-const geoCoder = require('../utils/geocoder');
 
 const ChannelSchema = new mongoose.Schema({
   name: {

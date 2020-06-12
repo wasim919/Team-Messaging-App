@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   getChannels,
   getChannel,
+  getUserChannel,
   createChannel,
   updateChannel,
   deleteChannel,
@@ -15,16 +16,14 @@ const { protect } = require('../middleware/auth');
 const advancedResults = require('../middleware/advancedResults');
 
 // // Include other resource router
-// const courseRouter = require('./courses');
-// const reviewRouter = require('./reviews');
+const postRouter = require('./posts');
 
 // // Re-route to other resource router
-// router.use('/:bootcampId/courses', courseRouter);
-// router.use('/:bootcampId/reviews', reviewRouter);
+router.use('/:channelId/posts', postRouter);
 
 router
   .route('/')
-  .get(advancedResults(Channel, 'courses'), getChannels)
+  .get(advancedResults(Channel, 'posts'), getChannels)
   .post(protect, createChannel);
 
 router

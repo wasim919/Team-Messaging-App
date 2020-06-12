@@ -16,6 +16,8 @@ exports.protect = asyncHandler(async (req, res, next) => {
     // Set token from cookie
   } else if (req.cookies.token) {
     token = req.cookies.token;
+  } else {
+    return next(new ErrorResponse('Token is not provided', 400));
   }
 
   // Make sure token exists
@@ -26,7 +28,8 @@ exports.protect = asyncHandler(async (req, res, next) => {
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id);
+    let fetchedUser = await User.findById(decoded.id);
+    req.user = fetchedUser;
     next();
   } catch (err) {
     return next(new ErrorResponse('Not authorized to access this route', 401));

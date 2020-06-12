@@ -1,14 +1,14 @@
 const express = require('express');
 const {
-  getCourses,
-  createCourse,
-  getCourse,
-  updateCourse,
-  deleteCourse,
-} = require('../controllers/courses');
-const { protect, authorize } = require('../middleware/auth');
+  getPosts,
+  createPost,
+  getPost,
+  updatePost,
+  deletePost,
+} = require('../controllers/posts');
+const { protect } = require('../middleware/auth');
 
-const Course = require('../models/Courses');
+const Post = require('../models/Post');
 
 const advancedResults = require('../middleware/advancedResults');
 
@@ -20,18 +20,18 @@ const router = express.Router({ mergeParams: true });
 router
   .route('/')
   .get(
-    advancedResults(Course, {
+    advancedResults(Post, {
       path: 'channel',
       select: 'name description',
     }),
-    getCourses
+    getPosts
   )
-  .post(protect, createCourse);
+  .post(protect, createPost);
 
 router
   .route('/:id')
-  .get(getCourse)
-  .put(protect, updateCourse)
-  .delete(protect, deleteCourse);
+  .get(getPost)
+  .put(protect, updatePost)
+  .delete(protect, deletePost);
 
 module.exports = router;

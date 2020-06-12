@@ -19,14 +19,15 @@ exports.getChannel = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Channel not found with id of ${req.params.id}`, 404)
     );
   }
-  res.status(200).json({ success: true, data: bootcamp });
+  res.status(200).json({ success: true, data: channel });
 });
+
 // @desc            Post channel
 // @route           POST /api/v1/channels
 // @access          Private
 exports.createChannel = asyncHandler(async (req, res, next) => {
   req.body.user = req.user;
-  const publishedChannels = await Channel.findOne({ user: req.user.id });
+  // const publishedChannels = await Channel.findOne({ user: req.user.id });
   // User can create only one channel
   // if (publishedChannels && req.user.role !== 'admin') {
   //   return next(
@@ -50,7 +51,7 @@ exports.updateChannel = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Channel not found with id of ${req.params.id}`, 404)
     );
   }
-  if (channel.user.toString() !== req.user.id && req.user.role !== 'admin') {
+  if (channel.user.toString() !== req.user.id) {
     return next(
       new ErrorResponse(
         `User with id ${req.user.id} is not authorized to update channel`,
@@ -74,8 +75,15 @@ exports.deleteChannel = asyncHandler(async (req, res, next) => {
   if (!channel) {
     return res.status(400).json({ success: false });
   }
-  // Make sure user is channel owner or admin
-
+  // Make sure the channel is created by the current user
+  if (channel.user.toString() !== req.user.id) {
+    return next(
+      new ErrorResponse(
+        `User with id ${req.user.id} is not authorized to update channel`,
+        401
+      )
+    );
+  }
   channel.remove();
   res.status(200).json({ success: true, data: {} });
 });

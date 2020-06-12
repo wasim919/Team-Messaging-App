@@ -24,10 +24,9 @@ connectDB();
 
 // Route files
 const auth = require('./routes/auth');
-// const courses = require('./routes/courses');
+const posts = require('./routes/posts');
 const channels = require('./routes/channels');
 const users = require('./routes/user');
-// const reviews = require('./routes/reviews');
 
 const app = express();
 
@@ -72,10 +71,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
 app.use('/api/v1/channels', channels);
-// app.use('/api/v1/courses', courses);
+app.use('/api/v1/posts', posts);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
-// app.use('/api/v1/reviews', reviews);
 
 app.use(errorHandler);
 
