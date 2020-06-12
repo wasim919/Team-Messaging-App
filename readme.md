@@ -26,4 +26,6 @@ npm install
 
 > https://documenter.getpostman.com/view/10666268/SzzhcxrA?version=latest
 
+On setting up the api on the local machine, the index page will display all the use cases that the api supports.
+
 - Version 1.0.0
