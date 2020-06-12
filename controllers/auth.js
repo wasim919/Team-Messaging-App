@@ -8,14 +8,14 @@ const crypto = require('crypto');
 // @route       POST /api/v1/auth/register
 // access       Public
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { username, email, password, region } = req.body;
 
   // Create user
   const user = await User.create({
-    name,
+    username,
     email,
     password,
-    role,
+    region,
   });
 
   sendTokenResponse(user, res, 201);
@@ -124,7 +124,6 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Invalid token', 400));
   }
   user.password = req.body.password;
-  console.log(user.password);
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
   await user.save({ validateBeforeSave: false });
@@ -157,9 +156,8 @@ const sendTokenResponse = (user, res, statusCode) => {
 // @access    Private
 exports.updateDetails = asyncHandler(async (req, res, next) => {
   let updateFields = {};
-  console.log(req.body);
-  if (req.body.name) {
-    updateFields.name = req.body.name;
+  if (req.body.username) {
+    updateFields.username = req.body.username;
   }
   if (req.body.email) {
     updateFields.email = req.body.email;

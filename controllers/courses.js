@@ -1,16 +1,16 @@
 const asyncHandler = require('../middleware/async');
 const Course = require('../models/Courses');
-const Bootcamp = require('../models/Bootcamps');
+const Channel = require('../models/Channel');
 const ErrorResponse = require('../utils/errorResponse');
 
 // @desc        Get single course
 // @route       GET /api/v1/courses
-// @route       GET /api/v1/bootcamps/:bootcampId/courses
+// @route       GET /api/v1/channels/:channelId/courses
 // @access      Private
 exports.getCourses = asyncHandler(async (req, res, next) => {
-  if (req.params.bootcampId) {
+  if (req.params.channelId) {
     const courses = await Course.find({
-      bootcamp: req.params.bootcampId,
+      channel: req.params.channelId,
     });
 
     res.status(200).json({
@@ -23,17 +23,17 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @desc        Add course specific to a bootcamp
-// @route       POST /api/v1/bootcamps/:bootcampId/courses
+// @desc        Add course specific to a channel
+// @route       POST /api/v1/channels/:channelId/courses
 // @access      Private
 exports.createCourse = asyncHandler(async (req, res, next) => {
-  req.body.bootcamp = req.params.bootcampId;
+  req.body.channel = req.params.channelId;
   req.body.user = req.user;
-  const bootcamp = await Bootcamp.findById(req.params.bootcampId);
-  if (!bootcamp) {
+  const channel = await Channel.findById(req.params.channelId);
+  if (!channel) {
     next(
       new ErrorResponse(
-        `Bootcamp does not exist with id of ${req.params.bootcampId}`,
+        `channel does not exist with id of ${req.params.channelId}`,
         404
       )
     );
@@ -51,7 +51,7 @@ exports.createCourse = asyncHandler(async (req, res, next) => {
 // @access      Public
 exports.getCourse = asyncHandler(async (req, res, next) => {
   const course = await Course.findById(req.params.id).populate({
-    path: 'bootcamp',
+    path: 'channel',
     select: 'name description',
   });
   if (!course) {

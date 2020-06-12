@@ -24,10 +24,10 @@ connectDB();
 
 // Route files
 const auth = require('./routes/auth');
-const courses = require('./routes/courses');
-const bootcamps = require('./routes/bootcamps');
+// const courses = require('./routes/courses');
+const channels = require('./routes/channels');
 const users = require('./routes/user');
-const reviews = require('./routes/reviews');
+// const reviews = require('./routes/reviews');
 
 const app = express();
 
@@ -71,11 +71,11 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routers
-app.use('/api/v1/bootcamps', bootcamps);
-app.use('/api/v1/courses', courses);
+app.use('/api/v1/channels', channels);
+// app.use('/api/v1/courses', courses);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
-app.use('/api/v1/reviews', reviews);
+// app.use('/api/v1/reviews', reviews);
 
 app.use(errorHandler);
 

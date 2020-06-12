@@ -21,17 +21,17 @@ router
   .route('/')
   .get(
     advancedResults(Course, {
-      path: 'bootcamp',
+      path: 'channel',
       select: 'name description',
     }),
     getCourses
   )
-  .post(protect, authorize('admin', 'publisher'), createCourse);
+  .post(protect, createCourse);
 
 router
   .route('/:id')
   .get(getCourse)
-  .put(protect, authorize('admin', 'publisher'), updateCourse)
-  .delete(protect, authorize('admin', 'publisher'), deleteCourse);
+  .put(protect, updateCourse)
+  .delete(protect, deleteCourse);
 
 module.exports = router;
