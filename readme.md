@@ -1,4 +1,4 @@
-# Team Messaging App (This is under progress)
+# Team Messaging App
 
 > he purpose of this app is to allow communication b/w people within an organisation.
 
